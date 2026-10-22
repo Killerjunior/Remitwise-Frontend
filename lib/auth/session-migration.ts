@@ -133,6 +133,15 @@ export function migrateSession(raw: Record<string, unknown>): MigrationResult {
     };
   }
   recordMigrationAttempt(
+
+  // ── Future steps go here as: ───────────────────────────────────────
+  // if (detectVersion(current) < 3) { current = migrateV2ToV3(current); }
+
+  const toVersion = detectVersion(current);
+
+  return {
+    data: current as unknown as SessionDataV2,
+    migrated: fromVersion !== toVersion,
     fromVersion,
     result.ok ? result.toVersion : fromVersion,
     result.ok,
